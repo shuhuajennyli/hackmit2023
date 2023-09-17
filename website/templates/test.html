@@ -19,7 +19,6 @@
     background-color: rgba(0,0,0,0.75); /* Black background with opacity */
     z-index: 1;"></div>
 
-    <img src="https://fontawesome.com/icons/pen-nib?f=classic&s=solid&pc=%23000000">
     <div style="width: 500px; height: 500px; position: relative; margin:auto; top:225px">
     <h1 id="prompt" style= "text-align: center;">Hello!</h1>
     <form style = "text-align: center;" method="POST" action="/gptapi">
@@ -31,11 +30,24 @@
         <br><br>
         <input type="submit" value="Generate Poem" onclick="generate()">
     </form>
+    <div style="position: relative; margin:auto; left: 220px; top: 10px">
+        <button type="button" onclick="journal()">Journal</button>
+    </div>
     </div>
 
     </footer>
 </body>
 <script>
+    let journalOn = false;
+    let journalDay;
+
+
+    function journal() {
+        let day = prompt("Which day would you like to reflect on? ");
+        journalDay = day;
+        journalOn = true;
+    }
+
     const promptsArray = ["How are you feeling right now, in this moment? ", 
         "Can you describe a recent situation that made you feel really happy or content? ", 
         "What's been on your mind lately that has been causing you stress or anxiety? ", 
@@ -80,21 +92,43 @@
     }
 
     function generate(){
-        let typ = prompt("What type of poem would you like to generate? ");
-        let num = prompt("How many thoughts should be incorporated? ");
-        let len = prompt("How long should the poem be? ");
-        let thoughts = "";
+        if (journalOn) {
+            let typ = prompt("What type of poem would you like to generate? ");
+            let len = prompt("How long should the poem be? ");
+            let thoughts = localStorage.getItem(journalDay);
+            console.log(thoughts);
 
-        for (let i = 0; i < Math.min(num, thoughtsHis.length); i++) {
-            thoughts += thoughtsHis[i] + " ";
+            document.getElementById("feel").value = thoughts;
+            document.getElementById("type").value = typ;
+            document.getElementById("length").value = len;
+            document.getElementById("overlay").style.display = "block";
+
+            journalOn = false;
         }
 
-        document.getElementById("feel").value = thoughts;
-        document.getElementById("type").value = typ;
-        document.getElementById("length").value = len;
-        document.getElementById("overlay").style.display = "block";
+        else {
+            let typ = prompt("What type of poem would you like to generate? ");
+            let num = prompt("How many thoughts should be incorporated? ");
+            let len = prompt("How long should the poem be? ");
+            let thoughts = "";
+
+            for (let i = 0; i < Math.min(num, thoughtsHis.length); i++) {
+                thoughts += thoughtsHis[i] + " ";
+            }
+
+            const date = new Date();
+            let day = date.getDate();
+            day = day.toString();
+            localStorage.setItem(day, thoughts);
+
+            document.getElementById("feel").value = thoughts;
+            document.getElementById("type").value = typ;
+            document.getElementById("length").value = len;
+            document.getElementById("overlay").style.display = "block";
+        }
     }
 
+    localStorage.setItem("14", "i love hackathons so much but they screw me over for life");
     inputThoughts();
 </script>
 </html>

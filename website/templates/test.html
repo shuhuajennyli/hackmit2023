@@ -1,99 +1,100 @@
 <!DOCTYPE html>
- 
 <html>
- 
 <head>
-    <link rel="stylesheet" href="style.css">
     <title>
-        Simple web Development Template HELLO
-    
+        Poetracker
     </title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
- 
 <body>
-    <nav class="navbar background">
-        <ul class="nav-list">
-            <div class="logo">
-                <img src="logo.png">
-            </div>
-            <li><a href="#web">Web Technology</a></li>
-            <li><a href="#program">C Programming</a></li>
-            <li><a href="#course">Courses</a></li>
-        </ul>
- 
-        <div class="rightNav">
-            <input type="text" name="search" id="search">
-            <button class="btn btn-sm">Search</button>
-        </div>
-    </nav>
+    <div id = "overlay" style = "position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.75); /* Black background with opacity */
+    z-index: 1;"></div>
 
-    <h1>Input Data</h1>
-    <form method="POST" action="/gptapi">
-        <label for="input_text">How are you feeling today?:</label>
-        <input type="text" id="feel" name="feel" required>
-        <label for="input_text">What type of poem?:</label>
-        <input type="text" id="type" name="type" required>
-        <label for="input_text">How long should the poem be?:</label>
-        <input type="text" id="length" name="length" required>
+    <img src="https://fontawesome.com/icons/pen-nib?f=classic&s=solid&pc=%23000000">
+    <div style="width: 500px; height: 500px; position: relative; margin:auto; top:225px">
+    <h1 id="prompt" style= "text-align: center;">Hello!</h1>
+    <form style = "text-align: center;" method="POST" action="/gptapi">
+        <input type="text" placeholder="" name="feel" id="feel">
+        <button id="btn" type="button" onclick="submitThought()" style="display:none">Submit</button>
+
+        <input type="text" id="type" name="type" style="display:none">
+        <input type="text" id="length" name="length" style="display:none">
         <br><br>
-        <input type="submit" value="Generate">
+        <input type="submit" value="Generate Poem" onclick="generate()">
     </form>
- 
-    <section class="firstsection">
-        <div class="box-main">
-            <div class="firstHalf">
-                <h1 class="text-big" id="web">
-                    Web Technology HI
-                </h1>
-                 
-                <p class="text-small">
-                    HTML 
-                </p>
- 
- 
-            </div>
-        </div>
-    </section>
- 
-    <section class="secondsection">
-        <div class="box-main">
-            <div class="secondHalf">
-                <h1 class="text-big" id="program">
-                    C Programming
-                </h1>
-                <p class="text-small">
-                    C 
-                </p>
- 
- 
-            </div>
-        </div>
-    </section>
- 
-    <section class="section">
-        <div class="paras">
-            <h1 class="sectionTag text-big">Java</h1>
- 
-            <p class="sectionSubTag text-small">
-                Java 
-            </p>
- 
- 
-        </div>
- 
-        <div class="thumbnail">
-            <img src="img.png" alt="laptop image">
-        </div>
-    </section>
- 
-    <footer class="background">
-        <p class="text-footer">
-            Copyright ©-All rights are reserved
-        </p>
- 
- 
+    </div>
+
     </footer>
 </body>
- 
+<script>
+    const promptsArray = ["How are you feeling right now, in this moment? ", 
+        "Can you describe a recent situation that made you feel really happy or content? ", 
+        "What's been on your mind lately that has been causing you stress or anxiety? ", 
+        "What's been on your mind lately that has been causing you stress or anxiety? ", 
+        "Is there a particular memory from your past that still evokes strong emotions when you think about it? ",
+        "What are some activities or hobbies that genuinely make you feel excited or passionate? ",
+        "Can you recall a time when you felt proud of yourself? What did you achieve or overcome? ",
+        "Have you experienced any moments of sadness or grief recently? What's been causing those emotions? ",
+        "Describe a time when you felt a deep sense of gratitude or appreciation for something or someone. ",
+        "Are there any emotions you find challenging to express or confront? Why do you think that is? ",
+        "Do you notice any recurring emotional patterns or themes in your life? ",
+        "How do you typically cope with difficult emotions? Are there healthy strategies that work for you? ",
+        "Are there any emotional goals or personal growth areas you'd like to explore or work on? ",
+        "What kind of music, art, or literature resonates with your emotions? Can you give examples? ",
+        "Do you find it easier to express your emotions verbally, through writing, or through other creative outlets? ",
+        "How do you think your emotional state affects your relationships with others? "];
+    const thoughtsHis = [];
+
+    let btn = document.getElementById('btn');
+    btn.addEventListener('click', (ev)=>{
+    });
+    document.addEventListener('keypress', (event)=>{
+        let keyCode = event.keyCode ? event.keyCode : event.which;
+        if(keyCode === 13) {
+            event.preventDefault();
+            btn.click();
+        } 
+    });
+
+    function inputThoughts() {
+        let randIndex = Math.floor(Math.random() * promptsArray.length);
+        let prompts = promptsArray[randIndex];
+        document.getElementById("prompt").innerHTML = "Write away, or answer the following: " + prompts;
+    }   
+
+    function submitThought(){
+        var input = document.getElementById("feel");
+        thoughtsHis.unshift(input.value);
+        input.value = "";
+        inputThoughts();
+        console.log(thoughtsHis);
+    }
+
+    function generate(){
+        let typ = prompt("What type of poem would you like to generate? ");
+        let num = prompt("How many thoughts should be incorporated? ");
+        let len = prompt("How long should the poem be? ");
+        let thoughts = "";
+
+        for (let i = 0; i < Math.min(num, thoughtsHis.length); i++) {
+            thoughts += thoughtsHis[i] + " ";
+        }
+
+        document.getElementById("feel").value = thoughts;
+        document.getElementById("type").value = typ;
+        document.getElementById("length").value = len;
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    inputThoughts();
+</script>
 </html>

@@ -4,7 +4,7 @@ import requests
 from PIL import Image
 import random
 
-openai.api_key = "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"
+openai.api_key = "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"
 openai.Model.list()
 
 prompts = ["How are you feeling right now, in this moment? ", 
@@ -37,7 +37,7 @@ def generateGPT(text_input, poem_spec, lenPoem):
     response = openai.Image.create(
         prompt = completion.choices[0].message.content,
         n=2,
-        size="1024x1024",
+        size="256x256",
         response_format="url"
         )
     url = response["data"][0]["url"]

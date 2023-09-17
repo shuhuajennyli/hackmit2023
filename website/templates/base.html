@@ -14,13 +14,26 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
 
     <title>{% block title %}Poem{% endblock %}</title>
   </head>
-  <body>
-    <h1></h1>
-    <p>{{ data }}</p>
-    <img src="{{ img }}" alt="HELP">
 
+  <body>
+  <div class="PoemResult" style="width: 1512px; height: 982px; background: #404040">
+    <div class="MacbookPro142" style="width: 1512px; height: 982px; padding-top: 40px; padding-bottom: 32px; left: 0px; top: 0px; position: absolute; background-image: url('https://cdn.glitch.global/cc5a600f-4e44-4395-9169-8f5cb7658705/White Wall?v=1694940434484'); flex-direction: column; justify-content: flex-start; align-items: center; gap: 30px; display: inline-flex">
+      <div class="Asset51" style="width: 195.62px; height: 54.49px; padding-left: 2.41px; padding-right: 2.41px; justify-content: center; align-items: center; display: inline-flex">
+        <img class="Rectangle" style="width: 190.80px; height: 55.68px" src="https://cdn.glitch.global/cc5a600f-4e44-4395-9169-8f5cb7658705/Poetify Logo?v=1694944373040" />
+      </div>
+      <div class="FuckingAiImageFrameShit" style="width: 477px; height: 482px; position: relative">
+        <img class="AIGeneratedImageGoesHere" style="width: 256px; height: 256px; left: 111px; top: 113px; position: absolute; background: linear-gradient(0deg, #B2D235 0%, #B2D235 100%)" src="{{img}}" />
+        <img class="SquareImageFrame" style="width: 477px; height: 482px; left: 0px; top: 0px; position: absolute" src="https://cdn.glitch.global/cc5a600f-4e44-4395-9169-8f5cb7658705/SQUAREPISSFRAME.png?v=1694947354780" />
+      </div>
+      <div class="Poem" style="width: 803px; height: 223.51px; justify-content: center; align-items: center; display: inline-flex">
+        <div class="PoemContent" style="width: 803px; height: 223.51px; text-align: center; color: black; font-size: 24px; font-family: Ad Astra; font-weight: 400; word-wrap: break-word"><pre>{{data}}</pre></pre></div>
+      </div>
+      <div class="PositionForButton" style="width: 761px; height: 60px"></div>
+    </div>
+  </div>
   </body>
 </html>

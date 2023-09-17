@@ -4,7 +4,7 @@ import requests
 from PIL import Image
 import random
 
-openai.api_key = ""
+openai.api_key = "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"
 openai.Model.list()
 
 '''

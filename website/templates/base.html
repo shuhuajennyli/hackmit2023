@@ -14,13 +14,32 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
+    <style>
+        .container {
+            position: relative;
+            max-width: 100%;
+            display: inline-block; /* Ensures the container takes up the size of the image */
+        }
 
-    <title>{% block title %}Poem{% endblock %}</title>
+        .text {
+            position: absolute;
+            top: 50%; /* Adjust to vertically center the text */
+            left: 50%; /* Adjust to horizontally center the text */
+            transform: translate(-50%, -50%); /* Center the text precisely */
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background for readability */
+            padding: 10px; /* Add padding for better readability */
+        }
+    </style>
   </head>
-  <body>
-    <h1></h1>
-    <p>{{ data }}</p>
-    <img src="{{ img }}" alt="HELP">
+  <body style="background-color: #96e0ff;">
+    <div style="width: 700px; height: 700px; max-width: 100%; position: relative; margin:auto; top:25px">
+        <h1 id="title" style= "text-align: center; font-family: 'Times New Roman', Times, serif;"></h1>
+        <div class="container">
+            <img src="{{ img }}" alt="Your Image" style="width: 100%">
+            <div class="text"><br><pre>{{ data }}</pre></div>
+        </div>
+        
+    </div>    
 
   </body>
 </html>
